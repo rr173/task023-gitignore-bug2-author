@@ -86,7 +86,7 @@ func (a *API) check(w http.ResponseWriter, r *http.Request) {
 	// 规范化路径：剥离前导 /，空路径或纯 / 视为非法。
 	normalized := make([]string, 0, len(req.Paths))
 	for _, p := range req.Paths {
-		np := strings.TrimRight(p, "/")
+		np := strings.TrimLeft(p, "/")
 		if np == "" {
 			writeJSON(w, http.StatusBadRequest, errBody{OK: false, Error: "存在空路径字符串"})
 			return
